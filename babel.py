@@ -39,9 +39,6 @@ class Babel:
         return generate
 
 
-
-
-
 class Stage(namedtuple('Stage', ['k', 'convert'])):
     def __call__(self, seq):
         return self.convert(*args, **kwargs)

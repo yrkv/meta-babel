@@ -108,7 +108,6 @@ class DFA:
 
 
 
-
 class DFABaseSampler(BabelStageSampler):
     """Samples random DFAs given configs"""
 
@@ -119,19 +118,21 @@ class DFABaseSampler(BabelStageSampler):
     def __init__(
         self,
         num_nodes: int,
+        alphabet: int,
         max_outgoing_edge: int,
         seq_len: int,
         seed: int = 42,
     ):
         self.num_nodes = resolve(num_nodes)
+        self.alphabet = resolve(alphabet)
         self.max_outgoing_edge = resolve(max_outgoing_edge)
         self.seq_len = resolve(seq_len)
         self.rng = np.random.default_rng(seed)
 
     def sample(self, prev:Stage=None):
         num_nodes = np.random.choice(self.num_nodes)
+        alphabet = range(np.random.choice(self.alphabet))
         seq_len = np.random.choice(self.seq_len)
-        alphabet = range(0, num_nodes)
         max_outgoing_edge = np.random.choice(self.max_outgoing_edge)
 
         transitions = [{} for _ in range(num_nodes)]
@@ -152,12 +153,12 @@ class DFABaseSampler(BabelStageSampler):
 
         def convert(seq=None):
             return dfa.sample(length=seq_len)
-        return Stage(num_nodes, convert)
+        return Stage(len(alphabet), convert)
 
 
 if __name__ == "__main__":
 
-    dfa_sampler = DFABaseSampler(4, 4, 20, seed=1234)
+    dfa_sampler = DFABaseSampler(4, 4, 4, 20, seed=1234)
     dfa = dfa_sampler.sample()
     print(dfa.convert())
 
