@@ -1,5 +1,5 @@
 # meta-babel
-Data generator library for meta-learning language learning algorithms
+Data generator library for meta-learning language learning algorithms.
 
 ## Install
 ```
@@ -16,3 +16,9 @@ python main.py --config dfa_simple --languages 1024 --tokens 10_000 --output dfa
 This creates a (roughly) 80 MB pickle file containg a list of lists of 1-dimensional numpy arrays.
 
 To create your own languages configurations, edit `main.py` to add an additional configuration.
+
+## TODO
+
+- [ ] Rewrite the probabalistic DFA to be simpler instead of using the borrowed implementation, much of the functionality from in-context language learning implementation isn't needed.
+- [ ] Performance optimizations on CFG stage, both in initialization and text generation. Currently lots of performance is left on the table
+- [ ] Multiprocessing for `main.py` dataset generation

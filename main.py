@@ -6,6 +6,7 @@ from cfg import CFGStageSampler
 import argparse
 from tqdm.auto import tqdm
 import pickle
+import numpy as np
 
 
 CONFIGS = {
@@ -67,7 +68,7 @@ if __name__ == "__main__":
         rows = []
 
         while total_tokens < args.tokens:
-            row = lang()
+            row = np.array(lang(), dtype=np.int32)
             rows.append(row)
             total_tokens += len(row)
 
